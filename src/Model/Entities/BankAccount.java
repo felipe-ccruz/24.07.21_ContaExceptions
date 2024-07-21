@@ -17,6 +17,22 @@ public class BankAccount {
         this.withdrawLimit = withdrawLimit;
     }
 
+    // BASE METOD
+    public void generateId(){
+        Random rand = new Random();
+        setId(rand.nextInt(9000) + 1000);
+    }
+
+    @Override
+    public String toString() {
+        return "\nBANK ACCOUNT" + 
+        "\n  -ID: " + id + 
+        "\n  -HOLDER: " + holder + 
+        "\n  -BALANCE: R$" + balance + 
+        "\n  -WITHDRAW LIMIT: R$" + withdrawLimit +
+        "\n";
+    }
+
     // METODS
     public void deposit(double amount) {
         setBalance(getBalance() + amount);
@@ -35,13 +51,8 @@ public class BankAccount {
         }
     }
 
-    public void generateId(){
-        Random rand = new Random();
-        setId(rand.nextInt(9000) + 1000);
-    }
-
     // EXCEPTIONS
-    public void verifyBalance(double amount) throws Exception{
+    public void verifyBalance(double amount) throws RuntimeException{
         if(amount > getWithdrawLimit())
         throw new ExceedsWithdrawLimitException("You can't withdraw more than R$" + getWithdrawLimit());
         if(amount > getBalance())
